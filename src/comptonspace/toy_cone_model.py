@@ -69,8 +69,8 @@ class ToyModel3DCone:
         plt.clf()
         plt.subplots_adjust(hspace=0.5)
 
-        # fig.canvas.set_window_title(Title)
-        # print("YSingle.shape", YSingle.shape)
+        fig.canvas.manager.set_window_title(Title)
+        print("YSingle.shape", YSingle.shape)
 
         for i in range(1, 5):    
             zGridElement = int((i-1)*self.gTrainingGridZ/4)

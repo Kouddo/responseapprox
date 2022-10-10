@@ -101,7 +101,7 @@ class HEALPixSpace:
         # Figure setup
         fig = plt.figure(FigureNumber)
         plt.clf()   # clear everything on this figure
-        fig.canvas.set_window_title(Title)
+        fig.canvas.manager.set_window_title(Title)
         fig.suptitle(f"XSingle = {np.degrees(XSingle)}")
         plt.subplots_adjust(hspace=0.5)
         plotCols = 2
