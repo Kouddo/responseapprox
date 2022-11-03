@@ -6,7 +6,7 @@ from src.cone_model import ToyModel3DCone, HEALPixCone
 from src.loss import ApproxLoss
 from src.model import ApproxModel
 from src.config import Config
-from src.train import TrainerMain, TrainerAutoEnc
+from src.train import Trainer
 from src.utils import set_seed, ensure_dir_exists
 from torchsummary import summary
 
@@ -14,18 +14,18 @@ if __name__ == '__main__':
 
     # Config
     config = Config()
-    config.model_type = 'fc'
+    config.model_type = 'conv'
     config.loss_type = 'MSELoss'
     config.metric_monitor = 'loss'
     config.lr = 1e-3
     config.dropout_rate = 0.0
     config.train_batch_size = 1024
     config.eval_batch_size = 1024
-    config.epoch = 20000
-    config.device = 'cuda:0'
+    config.epoch = 5000
+    config.device = 'cpu'
     
     # flattened = True for using fully-connected layers, False for using conv-based layers
-    config.flattened = True  
+    config.flattened = False  
     config.filter_size = 3
     config.NSIDE = 6
     config.exp_name = 'sphere_{}_{}_NSIDE{}_datasize1024'.format(
@@ -37,18 +37,20 @@ if __name__ == '__main__':
     config.dump(os.path.join(config.working_dir, 'config.json'))
     
     set_seed(2021)
-
+    
     # Dataset, DataLoader
-    # cone_model = ToyModel3DCone(
-    #     output_dir=os.path.join(config.working_dir, 'figs'),
-    #     flattened=config.flattened,
-    #     filter_size=config.filter_size
-    # )
+    cone_model = ToyModel3DCone(
+        output_dir=os.path.join(config.working_dir, 'figs'),
+        flattened=config.flattened,
+        filter_size=config.filter_size
+    )
+    """
+    
     cone_model = HEALPixCone(
         output_dir=os.path.join(config.working_dir, 'figs'),
         NSIDE=config.NSIDE
     )
-    
+    """
     #train_dset = cone_model.create_dataset(dataset_size=1024)
     #val_dset = cone_model.create_dataset(dataset_size=1024)   
     #f = open(f"sphere_datasets_NSIDE{config.NSIDE}.pkl", "wb"); pickle.dump((train_dset, val_dset), f); f.close()
@@ -80,6 +82,6 @@ if __name__ == '__main__':
     criterion = ApproxLoss(config.loss_type)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
 
-    trainer = TrainerMain(config, model, criterion, optimizer, cone_model)
+    trainer = Trainer(config, model, criterion, optimizer, cone_model)
     trainer.train(train_loader, val_loader)
 
