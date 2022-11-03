@@ -15,7 +15,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt 
 
 from src.dataset import ApproxDataset
-from src.comptonspace.healpixspace import HEALPixSpace
+from src.comptonspace.HEALPixSpace import HEALPixSpace
 
 
 class HEALPixCone:

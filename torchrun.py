@@ -6,7 +6,7 @@ from src.cone_model import ToyModel3DCone, HEALPixCone
 from src.loss import ApproxLoss
 from src.model import ApproxModel
 from src.config import Config
-from src.train import Trainer
+from src.train import TrainerMain as Trainer
 from src.utils import set_seed, ensure_dir_exists
 from torchsummary import summary
 
@@ -51,9 +51,9 @@ if __name__ == '__main__':
         NSIDE=config.NSIDE
     )
     """
-    #train_dset = cone_model.create_dataset(dataset_size=1024)
-    #val_dset = cone_model.create_dataset(dataset_size=1024)   
-    #f = open(f"sphere_datasets_NSIDE{config.NSIDE}.pkl", "wb"); pickle.dump((train_dset, val_dset), f); f.close()
+    train_dset = cone_model.create_dataset(dataset_size=1024)
+    val_dset = cone_model.create_dataset(dataset_size=1024)   
+    f = open(f"sphere_datasets_NSIDE{config.NSIDE}.pkl", "wb"); pickle.dump((train_dset, val_dset), f); f.close()
     
     # this pkl file is generated using the above three lines of code
     f = open("sphere_datasets_NSIDE6.pkl", "rb"); train_dset, val_dset = pickle.load(f); f.close()
