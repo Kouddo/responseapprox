@@ -1,3 +1,11 @@
+'''
+
+This script trains and runs autoencoders to denoise images of the cone model.
+
+@version 11/3/23
+
+'''
+
 import os
 import time
 import torch

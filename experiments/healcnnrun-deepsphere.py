@@ -1,3 +1,12 @@
+'''
+
+This script attempts to train a CNN on healpix coordinates with the deepsphere library.
+
+@version 11/3/22
+
+'''
+
+
 import os
 import time
 import pickle
